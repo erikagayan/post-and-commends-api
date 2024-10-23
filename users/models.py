@@ -65,8 +65,8 @@ class User(AbstractUser):
         super().clean()
 
         # addition email validation
-        if self.email and not self.email.endswith('@example.com'):
-            raise ValidationError(_('Email address must be from the example.com domain'))
+        if self.email and '@' not in self.email or len(self.email.split('@')[-1]) == 0:
+            raise ValidationError(_('Email address must contain a "@" and a domain name after it.'))
 
     class Meta:
         verbose_name = _("user")
